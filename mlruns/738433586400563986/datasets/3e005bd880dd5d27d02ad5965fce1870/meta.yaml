@@ -1,0 +1,20 @@
+digest: 7180cd37
+name: dataset
+profile: '{"num_rows": 13557, "num_elements": 216912}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "ID", "required": true}, {"type":
+  "long", "name": "No of Bedrooms", "required": true}, {"type": "double", "name":
+  "No of Bathrooms", "required": true}, {"type": "double", "name": "Flat Area (in
+  Sqft)", "required": true}, {"type": "double", "name": "Lot Area (in Sqft)", "required":
+  true}, {"type": "double", "name": "No of Floors", "required": true}, {"type": "long",
+  "name": "Overall Grade", "required": true}, {"type": "double", "name": "Area of
+  the House from Basement (in Sqft)", "required": true}, {"type": "long", "name":
+  "Basement Area (in Sqft)", "required": true}, {"type": "long", "name": "Age of House
+  (in Years)", "required": true}, {"type": "long", "name": "Renovated Year", "required":
+  true}, {"type": "double", "name": "Zipcode", "required": true}, {"type": "double",
+  "name": "Latitude", "required": true}, {"type": "double", "name": "Longitude", "required":
+  true}, {"type": "double", "name": "Living Area after Renovation (in Sqft)", "required":
+  true}, {"type": "long", "name": "Lot Area after Renovation (in Sqft)", "required":
+  true}]}'
+source: '{"tags": {"mlflow.user": "ayush", "mlflow.source.name": "c:\\Users\\ayush\\OneDrive\\Desktop\\new
+  model\\pipelines\\training_pipeline.py", "mlflow.source.type": "LOCAL"}}'
+source_type: code

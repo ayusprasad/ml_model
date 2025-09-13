@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/ayush/OneDrive/Desktop/new%20model/mlruns/738433586400563986/b49717a081ac4e4c8cf9946230ea366d/artifacts
+end_time: 1757601416452
+entry_point_name: ''
+experiment_id: '738433586400563986'
+lifecycle_stage: active
+run_id: b49717a081ac4e4c8cf9946230ea366d
+run_name: clumsy-turtle-973
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757601410137
+status: 3
+tags: []
+user_id: ayush

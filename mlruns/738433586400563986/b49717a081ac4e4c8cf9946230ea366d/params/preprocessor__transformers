@@ -1,0 +1,3 @@
+[('num', SimpleImputer(), ['ID', 'Flat Area (in Sqft)', 'Lot Area (in Sqft)', 'Area of the House from Basement (in Sqft)', 'Basement Area (in Sqft)', 'Age of House (in Years)', 'Zipcode', 'Latitude', 'Longitude', 'Living Area after Renovation (in Sqft)', 'Lot Area after Renovation (in Sqft)']), ('cat', Pipeline(steps=[('imputer', SimpleImputer(strategy='most_frequent')),
+                ('onehot',
+                 OneHotEncoder(handle_unknown='ignore', sparse_output=False))]), ['No of Bedrooms', 'No of Bathrooms', 'No of Floors', 'Overall Grade', 'Renovated Year'])]

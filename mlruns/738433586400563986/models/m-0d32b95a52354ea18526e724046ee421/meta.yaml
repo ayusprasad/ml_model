@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/ayush/OneDrive/Desktop/new%20model/mlruns/738433586400563986/models/m-0d32b95a52354ea18526e724046ee421/artifacts
+creation_timestamp: 1757601410491
+experiment_id: '738433586400563986'
+last_updated_timestamp: 1757601416192
+model_id: m-0d32b95a52354ea18526e724046ee421
+model_type: null
+name: model
+source_run_id: b49717a081ac4e4c8cf9946230ea366d
+status: 2
+status_message: null
