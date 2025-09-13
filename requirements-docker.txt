@@ -1,0 +1,2 @@
+# Create a filtered requirements file without Windows-specific packages
+grep -v "pywin32" requirements.txt > requirements-docker.txt

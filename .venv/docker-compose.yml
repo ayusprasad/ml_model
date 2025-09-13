@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ml-app:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - PYTHONUNBUFFERED=1
+      
+  # Add other services like databases if needed
+  # postgres:
+  #   image: postgres:13
+  #   environment:
+  #     POSTGRES_DB: ml_db
+  #     POSTGRES_USER: ml_user
+  #     POSTGRES_PASSWORD: ml_password
