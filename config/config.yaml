@@ -1,0 +1,33 @@
+# config/config.yaml
+
+# 1. PATHS (Now relative, not absolute! This makes your project portable)
+paths:
+  raw_data: "data/raw/house_price.csv"
+  test_data: "data/processed/test_data.csv"
+  processed_data: "data/processed/cleaned_house_data.csv"
+  champion_model: "models/champion/model.joblib"
+  challenger_model: "models/challenger/model_v2.joblib"
+
+# 2. DATA PREPROCESSING PARAMETERS
+data:
+  target_column: "Sale Price"
+  features_to_fill_na:
+    - "Sale Price"
+    - "Area of the House from Basement (in Sqft)"
+  log_transform_features:
+    - "Sale Price"
+    - "Area of the House from Basement (in Sqft)"
+  outlier_column: "Sale Price"
+
+# 3. MODEL PARAMETERS (You can easily try different ones!)
+model:
+  name: "price_predictor"
+  type: "linear_regression " # or "xgboost", "linear_regression"
+  parameters:
+    n_estimators: 100
+    random_state: 42
+
+# 4. SPLIT PARAMETERS
+split:
+  test_size: 0.2
+  random_state: 42

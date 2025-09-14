@@ -1,0 +1,41 @@
+artifact_path: file:///C:/Users/ayush/OneDrive/Desktop/new%20model/mlruns/738433586400563986/models/m-6ce4b511f09c4e019de42578dc56a1fe/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.0
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.1
+is_signature_from_type_hint: false
+mlflow_version: 3.3.2
+model_id: m-6ce4b511f09c4e019de42578dc56a1fe
+model_size_bytes: 3806
+model_uuid: m-6ce4b511f09c4e019de42578dc56a1fe
+prompts: null
+run_id: 9f67fb884e784122af85b39e34113571
+signature:
+  inputs: '[{"type": "long", "name": "ID", "required": true}, {"type": "long", "name":
+    "No of Bedrooms", "required": true}, {"type": "double", "name": "No of Bathrooms",
+    "required": true}, {"type": "double", "name": "Flat Area (in Sqft)", "required":
+    true}, {"type": "double", "name": "Lot Area (in Sqft)", "required": true}, {"type":
+    "double", "name": "No of Floors", "required": true}, {"type": "long", "name":
+    "Overall Grade", "required": true}, {"type": "double", "name": "Area of the House
+    from Basement (in Sqft)", "required": true}, {"type": "long", "name": "Basement
+    Area (in Sqft)", "required": true}, {"type": "long", "name": "Age of House (in
+    Years)", "required": true}, {"type": "long", "name": "Renovated Year", "required":
+    true}, {"type": "double", "name": "Zipcode", "required": true}, {"type": "double",
+    "name": "Latitude", "required": true}, {"type": "double", "name": "Longitude",
+    "required": true}, {"type": "double", "name": "Living Area after Renovation (in
+    Sqft)", "required": true}, {"type": "long", "name": "Lot Area after Renovation
+    (in Sqft)", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-09-14 04:41:52.585968'

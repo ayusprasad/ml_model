@@ -1,4 +1,3 @@
-.git
 .venv
 mlruns
 __pycache__
@@ -7,3 +6,4 @@ __pycache__
 *.pyd
 .DS_Store
 .env
+.git

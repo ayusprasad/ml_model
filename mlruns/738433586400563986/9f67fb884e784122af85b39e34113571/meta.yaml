@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/ayush/OneDrive/Desktop/new%20model/mlruns/738433586400563986/9f67fb884e784122af85b39e34113571/artifacts
+end_time: 1757824925522
+entry_point_name: ''
+experiment_id: '738433586400563986'
+lifecycle_stage: active
+run_id: 9f67fb884e784122af85b39e34113571
+run_name: adaptable-zebra-848
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757824909560
+status: 3
+tags: []
+user_id: ayush

@@ -7,6 +7,7 @@ from typing import List
 import pandas as pd
 import numpy as np
 import mlflow
+import joblib  # <-- NEW IMPORT
 from zenml import step
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -15,37 +16,34 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import Pipeline as SklearnPipeline
 
+# NEW: Import the config loader
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from utils.config_loader import load_config
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# optionally set a local mlflow tracking uri (uncomment & adjust if needed)
-# mlflow.set_tracking_uri("file:///C:/Users/ayush/OneDrive/Desktop/new model/mlruns")
-
+# Load configuration
+config = load_config() # <-- Load config once at the top
 
 @step(enable_cache=False)
 def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> SklearnPipeline:
+    # ... [All your existing data validation and preparation code remains exactly the same] ...
     # basic checks
     if not isinstance(X_train, pd.DataFrame) or not isinstance(y_train, pd.Series):
         raise ValueError("X_train must be a pandas DataFrame and y_train must be a pandas Series.")
 
-    # infer categorical columns: object/category OR numeric with small number of unique values
     categorical_cols = X_train.select_dtypes(include=["object", "category"]).columns.tolist()
-    # treat numeric columns with low cardinality as categorical (tweak threshold as needed)
     numeric_cols = X_train.select_dtypes(include=[np.number]).columns.tolist()
-    numeric_but_cat = [c for c in numeric_cols if X_train[c].nunique() <= 30]  # threshold 30
-    # remove columns that are the target or index if present (defensive)
-    # ensure we don't double-add numeric_but_cat if they are already object
+    numeric_but_cat = [c for c in numeric_cols if X_train[c].nunique() <= 30]
     for c in numeric_but_cat:
         if c not in categorical_cols:
             categorical_cols.append(c)
-
-    # final numerical cols = numeric columns that are NOT used as categorical
     numerical_cols = [c for c in numeric_cols if c not in categorical_cols]
 
     logger.info("Categorical columns: %s", categorical_cols)
     logger.info("Numerical columns: %s", numerical_cols)
 
-    # Define transformers
     numerical_transformer = SimpleImputer(strategy="mean")
     categorical_transformer = SklearnPipeline(
         steps=[
@@ -64,15 +62,12 @@ def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> SklearnPip
 
     pipeline = Pipeline([("preprocessor", preprocessor), ("regressor", LinearRegression())])
 
-    # Ensure MLflow experiment exists and set it
     EXPERIMENT_NAME = "price_prediction_experiment"
     try:
-        # This will create the experiment if it doesn't exist
         mlflow.set_experiment(EXPERIMENT_NAME)
     except Exception as e:
         logger.warning("Could not set/create MLflow experiment: %s", e)
 
-    # Enable autologging
     try:
         mlflow.sklearn.autolog()
     except Exception as e:
@@ -80,7 +75,6 @@ def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> SklearnPip
 
     started_run = False
     try:
-        # start run (will now have an experiment due to set_experiment)
         if not mlflow.active_run():
             mlflow.start_run()
             started_run = True
@@ -89,15 +83,27 @@ def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> SklearnPip
         pipeline.fit(X_train, y_train)
         logger.info("Pipeline fit complete")
 
-        # Try to extract expected columns after preprocessing
+        # ************** NEW CODE STARTS HERE **************
+        # Save the trained model to the filesystem as a challenger
+        # Use the path from our config file
+        model_path = config['paths']['challenger_model']
+        
+        # Crucial: Create the directory if it doesn't exist
+        model_dir = os.path.dirname(model_path)
+        os.makedirs(model_dir, exist_ok=True) 
+        
+        # Save the entire pipeline (preprocessor + model) using joblib
+        joblib.dump(pipeline, model_path)
+        logger.info("Model successfully saved to: %s", model_path)
+        # ************** NEW CODE ENDS HERE **************
+
+        # ... [Your existing code for expected_columns remains the same] ...
         expected_columns = list(numerical_cols)
         try:
             ct = pipeline.named_steps["preprocessor"]
-            # after fit, named_transformers_ exists
             named_tr = getattr(ct, "named_transformers_", {})
             cat_pipe = named_tr.get("cat", None)
             if cat_pipe is not None and hasattr(cat_pipe, "named_steps"):
-                # pipeline with steps -> get onehot step
                 onehot = cat_pipe.named_steps.get("onehot", None)
             else:
                 onehot = cat_pipe
@@ -124,7 +130,7 @@ def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> SklearnPip
         if started_run and mlflow.active_run():
             mlflow.end_run()
 
-    return pipeline
+    return pipeline # Return the pipeline as before
 
 
 if __name__ == "__main__":

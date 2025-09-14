@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/ayush/OneDrive/Desktop/new%20model/mlruns/738433586400563986/c52b5c00e9e148d1846df44ae974411b/artifacts
+end_time: 1757824066226
+entry_point_name: ''
+experiment_id: '738433586400563986'
+lifecycle_stage: active
+run_id: c52b5c00e9e148d1846df44ae974411b
+run_name: adventurous-frog-545
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757824058539
+status: 3
+tags: []
+user_id: ayush
